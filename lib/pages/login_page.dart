@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_time_chat/widgets/boton_azul.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
 import 'package:real_time_chat/widgets/custom_labels.dart';
 import 'package:real_time_chat/widgets/custom_logo.dart';
@@ -54,9 +55,13 @@ class __FormState extends State<_Form> {
             textController: passwordCtrl,
             isPassword: true,
           ),
-          RaisedButton(onPressed: (){
-
-          })
+          BotonAzul(
+            text: 'Ingrese',
+            onPressed: (){
+              print(emailCtrl.text);
+              print(passwordCtrl.text);
+            },
+          )
         ],
       ),
     );
