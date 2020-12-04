@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
+import 'package:real_time_chat/widgets/custom_labels.dart';
+import 'package:real_time_chat/widgets/custom_logo.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -10,9 +12,9 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _Logo(),
+            Logo(),
             _Form(),
-            _Labels(),
+            Labels(),
             Text('Terminos y condiciones de uso', style: TextStyle(fontWeight: FontWeight.w200))
           ],
         ),
@@ -21,24 +23,7 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _Logo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.only(top: 50),
-        width: 170,
-        child: Column(
-          children: [
-            Image(image: AssetImage('assets/tag-logo.png')),
-            SizedBox(height: 20),
-            Text('Messenger', style: TextStyle(fontSize: 30))
-          ],
-        ),
-      ),
-    );
-  }
-}
+
 
 class _Form extends StatefulWidget {
   @override
@@ -46,6 +31,9 @@ class _Form extends StatefulWidget {
 }
 
 class __FormState extends State<_Form> {
+  final emailCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,28 +41,27 @@ class __FormState extends State<_Form> {
       padding: EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          CustomInput(),
-          CustomInput()
-          // TODO: crear boton
-          // RaisedButton(onPressed: (){})
+          CustomInput(
+            icon: Icons.mail_outline,
+            placeholder: 'Correo',
+            keyboardType: TextInputType.emailAddress,
+            textController: emailCtrl
+          ),
+          CustomInput(
+            icon: Icons.lock_outline,
+            placeholder: 'Password',
+            keyboardType: TextInputType.text,
+            textController: passwordCtrl,
+            isPassword: true,
+          ),
+          RaisedButton(onPressed: (){
+
+          })
         ],
       ),
     );
   }
 }
 
-class _Labels extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text('No tienes cuenta?', style: TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300)),
-          SizedBox(height: 10),
-          Text('Crea una ahora!', style: TextStyle(color: Colors.blue[600], fontSize: 18, fontWeight: FontWeight.bold))
-        ],
-      ),
-    );
-  }
-}
+
 
