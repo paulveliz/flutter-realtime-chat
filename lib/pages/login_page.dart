@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:real_time_chat/services/auth_service.dart';
 import 'package:real_time_chat/widgets/boton_azul.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
 import 'package:real_time_chat/widgets/custom_labels.dart';
@@ -68,8 +70,8 @@ class __FormState extends State<_Form> {
           BotonAzul(
             text: 'Ingrese',
             onPressed: (){
-              print(emailCtrl.text);
-              print(passwordCtrl.text);
+              final authService = Provider.of<AuthService>(context, listen: false);
+              authService.login(emailCtrl.text, passwordCtrl.text);
             },
           )
         ],
