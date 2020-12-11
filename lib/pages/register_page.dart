@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:real_time_chat/helpers/mostrar_alerta.dart';
+import 'package:real_time_chat/services/auth_service.dart';
 import 'package:real_time_chat/widgets/boton_azul.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
 import 'package:real_time_chat/widgets/custom_labels.dart';
@@ -43,11 +46,14 @@ class _Form extends StatefulWidget {
 
 class __FormState extends State<_Form> {
   final nameController = TextEditingController();
-  final emailCtrl = TextEditingController();
-  final passwordCtrl = TextEditingController();
+  final emailCtrl      = TextEditingController();
+  final passwordCtrl   = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+
+
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -74,9 +80,14 @@ class __FormState extends State<_Form> {
           ),
           BotonAzul(
             text: 'Ingrese',
-            onPressed: (){
-              print(emailCtrl.text);
-              print(passwordCtrl.text);
+            onPressed: authService.autenticando ? null : () async {
+              final isRegistered = await authService.register( nameController.text.trim(), emailCtrl.text.trim(), passwordCtrl.text.trim() );
+              if(isRegistered == true){
+                //TODO: conectar con sockets.
+                Navigator.pushReplacementNamed(context, 'usuarios');
+              }else{
+                mostrarAlerta(context, 'No se pudo registrar', isRegistered);
+              }
             },
           )
         ],
