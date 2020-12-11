@@ -78,7 +78,10 @@ class __FormState extends State<_Form> {
               FocusScope.of(context).unfocus();
               final loginOk = await authService.login(emailCtrl.text.trim(), passwordCtrl.text.trim());
               if(loginOk){
+                //TODO: Conectar con socket server
                 // Navegar a otra pantalla.
+                Navigator.pushReplacementNamed(context, 'usuarios');
+
               }else{
                 mostrarAlerta(context, 'Login incorrecto', 'Revise sus credenciales nuevamente');
               }
