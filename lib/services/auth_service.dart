@@ -18,8 +18,8 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future login(String email, String password) async {
-    this._autenticando = true;
+  Future<bool> login(String email, String password) async {
+    this.autenticando = true;
 
     final data = {
       'email': email,
@@ -32,11 +32,16 @@ class AuthService with ChangeNotifier {
         'Content-Type': 'application/json'
       }
     );
+    this.autenticando = false;
     if(resp.statusCode == 200){
       final loginResponse = loginResponseFromJson( resp.body );
       this.usuario = loginResponse.usuario;
+      //TODO: Guardar JWT.
+
+      return true;
+    } else {
+      return false;
     }
 
-    this._autenticando = false;
   }
 }
