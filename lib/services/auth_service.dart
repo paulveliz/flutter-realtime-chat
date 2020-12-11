@@ -94,7 +94,6 @@ class AuthService with ChangeNotifier {
         'x-token': token
       }
     );
-    print(response.body);
 
     if(response.statusCode == 200){
       final registerResponse = loginResponseFromJson( response.body );
