@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:real_time_chat/models/usuario.dart';
 import 'package:real_time_chat/services/auth_service.dart';
+import 'package:real_time_chat/services/socket_service.dart';
 
 class UsuariosPage extends StatefulWidget {
   const UsuariosPage({Key key}) : super(key: key);
@@ -22,6 +23,8 @@ class _UsuariosPageState extends State<UsuariosPage> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>( context );
+
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +39,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
           icon: Icon(Icons.exit_to_app, color: Colors.black54), 
           onPressed: () {
 
-            //TODO: Desconectarnos del socket server.
+            socketService.disconnect();
             Navigator.pushReplacementNamed(context, 'login');
             AuthService.deleteToken();
             

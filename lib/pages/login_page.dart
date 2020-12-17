@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_time_chat/helpers/mostrar_alerta.dart';
 import 'package:real_time_chat/services/auth_service.dart';
+import 'package:real_time_chat/services/socket_service.dart';
 import 'package:real_time_chat/widgets/boton_azul.dart';
 import 'package:real_time_chat/widgets/custom_input.dart';
 import 'package:real_time_chat/widgets/custom_labels.dart';
@@ -52,6 +53,7 @@ class __FormState extends State<_Form> {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>( context );
+    final socketService = Provider.of<SocketService>( context );
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -78,7 +80,7 @@ class __FormState extends State<_Form> {
               FocusScope.of(context).unfocus();
               final loginOk = await authService.login(emailCtrl.text.trim(), passwordCtrl.text.trim());
               if(loginOk){
-                //TODO: Conectar con socket server
+                socketService.connect();
                 // Navegar a otra pantalla.
                 Navigator.pushReplacementNamed(context, 'usuarios');
 
